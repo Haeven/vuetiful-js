@@ -1,0 +1,29 @@
+{
+  "name": "vuetiful",
+  "version": "1.0.0",
+  "description": "A collection library of custom dynamic Vue components.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node src/build/utils/generate-app-entry.js && vue-cli-service serve --open",
+    "build": "node src/build/build.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://github.com/Haeven/vuetiful.git"
+  },
+  "author": "Haeven Kelley <haevenshane@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Haeven/vuetiful/issues"
+  },
+  "homepage": "https://github.com/Haeven/vuetiful#readme",
+  "devDependencies": {
+    "@vue/cli-service": "^4.2.3",
+    "eslint": "^6.8.0",
+    "eslint-plugin-vue": "^6.2.2",
+    "node-sass": "^4.13.1",
+    "sass-loader": "^8.0.2",
+    "vue-template-compiler": "^2.6.11"
+  }
+}

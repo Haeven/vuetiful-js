@@ -1,0 +1,87 @@
+<template>
+	<div class="sidebar">
+		<ul>
+			<li v-for="item in navigableItems"
+				:class="(loadedPage === item.location || item.location === '/dashboard' && loadedPage == '/') ? 'active' : ''"
+				:id="item.slug"
+				v-bind:key="item.slug"
+				@click="redirect(item.location, item.slug)">
+				{{ item.label }}
+			</li>
+		</ul>
+	</div>
+</template>
+
+<script>
+export default {
+	name: 'side-bar',
+	props: {
+		navigableItems: Array
+	},
+  data: function() {
+    return {
+      navigableItems
+    };
+  },
+  methods: {
+      redirect(location, activeSlug) {
+        navigableItems.map(inactive => {
+          (inactive.slug != activeSlug)
+              ? document.querySelector(`#${inactive.slug}`).classList.remove('active')
+              : document.querySelector(`#${activeSlug}`).classList.add('active');
+          });
+
+          this.$router.push(activeSlug);
+      }
+  },
+  computed: {
+    loadedPage: function () {
+      return this.$router.currentRoute.path;
+    }
+  }
+};
+</script>
+
+<style scoped lang="scss">
+.sidebar {
+  position: fixed;
+  /* Top spacing must be equal to navbar--height to prevent over-lapping */
+  top: $navbar--height;
+  height: $sidebar--height;
+  width: $sidebar--width;
+  background-color: $sidebar--color;
+  /* Offset the sidebar by it's width, this will move the sidebar out of the viewport
+    and allow for animation back into the viewport */
+  left: -$sidebar--width;
+
+  ul {
+    margin: $sidebar__list--margin-top $sidebar__list--margin-left;
+    list-style-type: none;
+    text-align: left;
+
+    li {
+      height: $sidebar__item--height;
+      width: $sidebar__item--width;
+      margin-bottom: $sidebar__item--margin-bottom;
+      padding-top: $sidebar__item--height * 0.25;
+      padding-left: 20px;
+      /* Top padding to push the text down in proportion to the height of the element */
+      font-size: 0.9em;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    li.active {
+      background-color: #e87511;
+      color: #ffffff;
+    }
+  }
+}
+.sidebar.hidden {
+  animation: slide-out 0.2s forwards;
+  -webkit-animation: slide-out 0.2s forwards;
+}
+.sidebar.visible {
+  animation: slide-in 0.2s forwards;
+  -webkit-animation: slide-in 0.2s forwards;
+}
+</style>
