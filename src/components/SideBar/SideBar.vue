@@ -18,27 +18,22 @@ export default {
 	props: {
 		navigableItems: Array
 	},
-  data: function() {
-    return {
-      navigableItems
-    };
-  },
-  methods: {
-      redirect(location, activeSlug) {
-        navigableItems.map(inactive => {
-          (inactive.slug != activeSlug)
-              ? document.querySelector(`#${inactive.slug}`).classList.remove('active')
-              : document.querySelector(`#${activeSlug}`).classList.add('active');
-          });
+	methods: {
+		redirect(location, activeSlug) {
+			this.navigableItems.map(inactive => {
+				(inactive.slug != activeSlug)
+					? document.querySelector(`#${inactive.slug}`).classList.remove('active')
+					: document.querySelector(`#${activeSlug}`).classList.add('active');
+			});
 
-          this.$router.push(activeSlug);
-      }
-  },
-  computed: {
-    loadedPage: function () {
-      return this.$router.currentRoute.path;
-    }
-  }
+			this.$router.push(activeSlug);
+		}
+	},
+	computed: {
+		loadedPage: function () {
+			return this.$router.currentRoute.path;
+		}
+	}
 };
 </script>
 
