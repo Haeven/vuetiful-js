@@ -26,28 +26,28 @@
 </template>
 
 <script>
-import Input from "../Input/Input";
-import Checkbox from "../Checkbox/Checkbox";
+import Input from '../Input/Input';
+import Checkbox from '../Checkbox/Checkbox';
 
 export default {
-  name: "search-form",
-  data() {
-    return {
+	name: 'search-form',
+	data() {
+		return {
 			oFormFields: this.getFormFields()
-		}
-  },
-  components: { 'search-input': Input, 'search-checkbox': Checkbox },
-  methods: {
+		};
+	},
+	components: { 'search-input': Input, 'search-checkbox': Checkbox },
+	methods: {
 		getFormFields() {
 			return this.formFields.reduce((agg, cur) => { agg[cur.label] = ''; return agg; }, {});
 		}
 	},
-  props: {
-    formFields: Array,
+	props: {
+		formFields: Array,
 		searchFunc: Function,
 		enableCheckbox: Boolean,
 		checkboxText: String,
-  }
+	}
 };
 </script>
 
