@@ -60,7 +60,7 @@ import ClickOutside from '../../../utils/clickOutside.js'
 const pageCountMax = 9
 
 export default {
-  name: 'VuePagination',
+  name: 'vuetiful-VuePagination',
   data() {
     return {
       clickOutside: null,

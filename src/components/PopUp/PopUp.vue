@@ -13,18 +13,18 @@
 
 <script>
 export default {
-  name: 'popup',
-  components: {},
-  methods: {},
-  props: {
+	name: 'vuetiful-popup',
+	components: {},
+	methods: {},
+	props: {
 		header: String,
 		alertMessage: String,
 		leftButton: String,
 		rightButton: String,
 		leftBtnClass: String,
 		rightBtnClass: String
-  }
-}
+	}
+};
 </script>
 
 <style scoped lang="scss">

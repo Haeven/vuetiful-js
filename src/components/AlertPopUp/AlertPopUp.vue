@@ -11,7 +11,7 @@
 
 <script>
 export default {
-	name: 'alert-popup',
+	name: 'vuetiful-alert-popup',
 	components: {},
 	methods: {},
 	props: {
@@ -19,7 +19,7 @@ export default {
 		topButton: String,
 		bottomButton: String
 	}
-}
+};
 </script>
 
 <style scoped lang="scss">

@@ -25,7 +25,7 @@
 import Display from '../../../utils/display.js'
 
 export default {
-  name: 'FilterPanel',
+  name: 'vuetiful-FilterPanel',
   data() {
     return {
       isShow: { value: false },

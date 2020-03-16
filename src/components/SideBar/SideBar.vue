@@ -14,8 +14,18 @@
 
 <script>
 export default {
-	name: 'side-bar',
+	name: 'vuetiful-side-bar',
 	props: {
+		/*
+			The navigableItems property should be an array of objects, with each object representing an nav item in the sidebar
+			e.g. navigableItems: [
+				{
+					"slug": "dashboard", // The unique identifier for the sidebar item
+					"label": "Dashboard", // The display text of the sidebar item
+					"location": "/dashboard" // The URL the sidebar item should redirect to
+				}
+			]
+		*/
 		navigableItems: Array
 	},
 	methods: {

@@ -13,7 +13,7 @@
 import navbarIcon from '../../assets/icons/navbar-menu-icon.svg';
 
 export default {
-	name: 'nav-bar',
+	name: 'vuetiful-nav-bar',
 	data: function() {
 		return {
 			navbarIcon,

@@ -116,7 +116,7 @@ const whiteSpaceList = [ 'nowrap', 'normal', 'pre', 'pre-wrap', 'pre-line' ];
 const textOverflowList = [ 'clip', 'ellipsis' ];
 
 export default {
-	name: 'table',
+	name: 'vuetiful-table',
 	data() {
 		return {
 			tableData           : {},
@@ -159,31 +159,31 @@ export default {
 		}
 	},
 	computed: {
-		sourceData         () { return (Array.isArray(this.params.data)) ? this.params.data : []                                                                             },
-		tableBorder        () { return (this.params.border) ? 'show-border' : ''                                                                                        		 },
-		rowStripe          () { return (this.params.rowStripe) ? 'is-striped' : ''                                                                                           },
-		headerInfirstRow   () { return !!(this.params.header === 'row')                                                                                                      },
-		headerInfirstColumn() { return !!(this.params.header === 'column')                                                                                                   },
-		highlightConfig    () { return (this.params.highlight && typeof this.params.highlight === 'object') ? this.params.highlight : {}                                     },
-		highlightedColor   () { return (this.params.highlightedColor && typeof this.params.highlightedColor === 'string') ? this.params.highlightedColor : '#000000'         },
-		wordWrap           () { return (this.params.wordWrap && wordWrapList.includes(this.params.wordWrap)) ? this.params.wordWrap : wordWrapList[0]                        },
-		whiteSpace         () { return (this.params.whiteSpace && whiteSpaceList.includes(this.params.whiteSpace)) ? this.params.whiteSpace : whiteSpaceList[0]              },
-		textOverflow       () { return (this.params.textOverflow && textOverflowList.includes(this.params.textOverflow)) ? this.params.textOverflow : textOverflowList[0]    },
-		showCheck          () { return !!(this.params.showCheck)                                                                                                             },
-		enableSearch       () { return !!(this.params.enableSearch)                                                                                                          },
-		enableTools        () { return !!(this.params.enableTools)                                                                                                           },
-		minWidth           () { return (typeof this.params.minWidth === 'number' && this.params.minWidth > 0) ? this.params.minWidth : 300                                   },
-		maxWidth           () { return (typeof this.params.maxWidth === 'number' && this.params.maxWidth > 0) ? this.params.maxWidth : 1600                                  },
-		height             () { return (typeof this.params.height === 'number' && this.params.height > this.rowHeight) ? this.params.height - this.rowHeight + 'px' : 'auto' },
-		headerHeight       () { return (typeof this.params.headerHeight === 'number' && this.params.headerHeight >= 24) ? this.params.headerHeight : 30                      },
-		headerFontSize     () { return (typeof this.params.headerFontSize === 'number') ? this.params.headerHeight : 11                                                      },
-		headerDropShadow   () { return (this.params.headerBoxShadow) ? this.params.headerBoxShadow : false                                                                   },
-		rowHeight          () { return (typeof this.params.rowHeight === 'number' && this.params.rowHeight >= 24) ? this.params.rowHeight : 30                               },
-		sortConfig         () { return (this.params.header === 'row' && Array.isArray(this.params.sort)) ? this.params.sort : []                                             },
-		editConfig         () { return (this.params.edit && typeof this.params.edit === 'object') ? this.params.edit : {}                                                    },
-		pagination         () { return !!(this.params.pagination)                                                                                                            },
-		pageConfig         () { return (typeof this.params.pageSize === 'number' &&this.params.pageSize > 0) ? this.params.pageSize : 10                                     },
-		pageSizes          () { return (Array.isArray(this.params.pageSizes)) ? this.params.pageSizes : [10, 20, 50, 100]                                                    },
+		sourceData         () { return (Array.isArray(this.params.data)) ? this.params.data : [];                                                                             },
+		tableBorder        () { return (this.params.border) ? 'show-border' : '';                                                                                        		 },
+		rowStripe          () { return (this.params.rowStripe) ? 'is-striped' : '';                                                                                           },
+		headerInfirstRow   () { return !!(this.params.header === 'row');                                                                                                      },
+		headerInfirstColumn() { return !!(this.params.header === 'column');                                                                                                   },
+		highlightConfig    () { return (this.params.highlight && typeof this.params.highlight === 'object') ? this.params.highlight : {};                                     },
+		highlightedColor   () { return (this.params.highlightedColor && typeof this.params.highlightedColor === 'string') ? this.params.highlightedColor : '#000000';         },
+		wordWrap           () { return (this.params.wordWrap && wordWrapList.includes(this.params.wordWrap)) ? this.params.wordWrap : wordWrapList[0];                        },
+		whiteSpace         () { return (this.params.whiteSpace && whiteSpaceList.includes(this.params.whiteSpace)) ? this.params.whiteSpace : whiteSpaceList[0];              },
+		textOverflow       () { return (this.params.textOverflow && textOverflowList.includes(this.params.textOverflow)) ? this.params.textOverflow : textOverflowList[0];    },
+		showCheck          () { return !!(this.params.showCheck);                                                                                                             },
+		enableSearch       () { return !!(this.params.enableSearch);                                                                                                          },
+		enableTools        () { return !!(this.params.enableTools);                                                                                                           },
+		minWidth           () { return (typeof this.params.minWidth === 'number' && this.params.minWidth > 0) ? this.params.minWidth : 300;                                   },
+		maxWidth           () { return (typeof this.params.maxWidth === 'number' && this.params.maxWidth > 0) ? this.params.maxWidth : 1600;                                  },
+		height             () { return (typeof this.params.height === 'number' && this.params.height > this.rowHeight) ? this.params.height - this.rowHeight + 'px' : 'auto'; },
+		headerHeight       () { return (typeof this.params.headerHeight === 'number' && this.params.headerHeight >= 24) ? this.params.headerHeight : 30;                      },
+		headerFontSize     () { return (typeof this.params.headerFontSize === 'number') ? this.params.headerHeight : 11;                                                      },
+		headerDropShadow   () { return (this.params.headerBoxShadow) ? this.params.headerBoxShadow : false;                                                                   },
+		rowHeight          () { return (typeof this.params.rowHeight === 'number' && this.params.rowHeight >= 24) ? this.params.rowHeight : 30;                               },
+		sortConfig         () { return (this.params.header === 'row' && Array.isArray(this.params.sort)) ? this.params.sort : [];                                             },
+		editConfig         () { return (this.params.edit && typeof this.params.edit === 'object') ? this.params.edit : {};                                                    },
+		pagination         () { return !!(this.params.pagination);                                                                                                            },
+		pageConfig         () { return (typeof this.params.pageSize === 'number' &&this.params.pageSize > 0) ? this.params.pageSize : 10;                                     },
+		pageSizes          () { return (Array.isArray(this.params.pageSizes)) ? this.params.pageSizes : [10, 20, 50, 100];                                                    },
 		columnWidth() {
 			if (populatedArray(this.params.columnWidth)) {
 				const obj = {};
@@ -215,8 +215,8 @@ export default {
 						&& populatedArray(f.content)
 					) {
 						if (f.content.every(c => c && typeof c.text === 'string' && typeof c.value !== 'undefined')) {
-							const content = f.content.map(c => new Object({ ...c, checked: false, key: generateUnique(`content-`) }));
-							filterObj[f.column] = { ...f, content, key: generateUnique(`filter-`) };
+							const content = f.content.map(c => new Object({ ...c, checked: false, key: generateUnique('content-') }));
+							filterObj[f.column] = { ...f, content, key: generateUnique('filter-') };
 						}
 					}
 				});
@@ -268,7 +268,7 @@ export default {
 		initData() {
 			if (is2DMatrix(this.sourceData)) {
 				const table = {
-					key: generateUnique(`table-`),
+					key: generateUnique('table-'),
 					checked: false,
 					rows: [],
 					filteredRows: {}
@@ -276,7 +276,7 @@ export default {
 
 				for (let i = 0; i < this.sourceData.length; i++) {
 					const tableRow = {
-						key: generateUnique(`table-`),
+						key: generateUnique('table-'),
 						checked: false,
 						show: true,
 						filtered: false,
@@ -284,7 +284,7 @@ export default {
 						index: i
 					};
 
-					tableRow.cells = this.sourceData[i].map(item => new Object({ data: item, key: generateUnique(`table-`), checked: false }));
+					tableRow.cells = this.sourceData[i].map(item => new Object({ data: item, key: generateUnique('table-'), checked: false }));
 					table.rows.push(tableRow);
 				}
 
@@ -343,16 +343,16 @@ export default {
 			if (this.isHighlighted(rowIndex, columnIndex)) style.backgroundColor = this.highlightedColor;
 
 			return (this.columnWidth[columnIndex]) ? {
-					...style,
-					flexGrow: 0,
-					flexShrink: 0,
-					flexBasis: this.columnWidth[columnIndex]
-				} : {
-					...style,
-					flexGrow: 1,
-					flexShrink: 1,
-					flexBasis: '0%'
-				}
+				...style,
+				flexGrow: 0,
+				flexShrink: 0,
+				flexBasis: this.columnWidth[columnIndex]
+			} : {
+				...style,
+				flexGrow: 1,
+				flexShrink: 1,
+				flexBasis: '0%'
+			};
 		},
 		/**
 		 * @function - Checks if the cell is editable
