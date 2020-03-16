@@ -26,8 +26,8 @@
 </template>
 
 <script>
-import Input from '../Input/Input';
-import Checkbox from '../Checkbox/Checkbox';
+import Input from '../Input/Input.vue';
+import Checkbox from '../Checkbox/Checkbox.vue';
 
 export default {
 	name: 'search-form',

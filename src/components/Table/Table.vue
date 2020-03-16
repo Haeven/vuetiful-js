@@ -108,7 +108,7 @@ import { populatedArray, is2DMatrix } from '../../utils/array.js';
 import { generateUnique } from '../../utils/generateUnique.js';
 
 // Components
-import Input from '../Input/Input';
+import Input from '../Input/Input.vue';
 
 // Statics
 const wordWrapList = [ 'normal', 'break-word' ];
