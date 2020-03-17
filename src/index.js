@@ -20,14 +20,14 @@ export { AlertPopUp, Checkbox, Input, NavBar, PopUp, SearchForm, SideBar, Table 
 
 /* Use every component when the library is installed as a Vue plugin */
 function install(Vue) {
-	Vue.component('AlertPopUp', AlertPopUp);
-	Vue.component('Checkbox', Checkbox);
-	Vue.component('Input', Input);
-	Vue.component('NavBar', NavBar);
-	Vue.component('PopUp', PopUp);
-	Vue.component('SearchForm', SearchForm);
-	Vue.component('SideBar', SideBar);
-	Vue.component('Table', Table);
+	Vue.component('vuetiful-alert-pop-up', AlertPopUp);
+	Vue.component('vuetiful-checkbox', Checkbox);
+	Vue.component('vuetiful-input', Input);
+	Vue.component('vuetiful-nav-bar', NavBar);
+	Vue.component('vuetiful-pop-up', PopUp);
+	Vue.component('vuetiful-search-form', SearchForm);
+	Vue.component('vuetiful-side-bar', SideBar);
+	Vue.component('vuetiful-table', Table);
 }
 
 /* Export the library as a plugin */

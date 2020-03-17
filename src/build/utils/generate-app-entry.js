@@ -18,7 +18,7 @@ export { ${componentNames.map(componentName => componentName).join(', ')} };
 
 /* Use every component when the library is installed as a Vue plugin */
 function install(Vue) {
-${componentNames.map(componentName => `	Vue.component('${componentName}', ${componentName})`).join(';\n') };
+${componentNames.map(componentName => `	Vue.component('vuetiful-${componentName.match(/[A-Z][a-z]+/g).join('-').toLowerCase()}', ${componentName})`).join(';\n') };
 }
 
 /* Export the library as a plugin */
