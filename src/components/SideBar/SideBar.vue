@@ -55,9 +55,6 @@ export default {
   height: $sidebar--height;
   width: $sidebar--width;
   background-color: $sidebar--color;
-  /* Offset the sidebar by it's width, this will move the sidebar out of the viewport
-    and allow for animation back into the viewport */
-  left: -$sidebar--width;
 
   ul {
     margin: $sidebar__list--margin-top $sidebar__list--margin-left;
@@ -83,10 +80,15 @@ export default {
 }
 .sidebar.hidden {
   animation: slide-out 0.2s forwards;
-  -webkit-animation: slide-out 0.2s forwards;
+	-webkit-animation: slide-out 0.2s forwards;
+
+	/* Offset the sidebar by it's width, this will move the sidebar out of the viewport
+    and allow for animation back into the viewport */
+  left: -$sidebar--width;
 }
 .sidebar.visible {
   animation: slide-in 0.2s forwards;
-  -webkit-animation: slide-in 0.2s forwards;
+	-webkit-animation: slide-in 0.2s forwards;
+	left: 0;
 }
 </style>
