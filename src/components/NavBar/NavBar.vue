@@ -31,23 +31,5 @@ export default {
 </script>
 
 <style scoped lang="scss">
-nav {
-  background-color: $navbar--background-color;
-  height: $navbar--height;
-  width: $navbar--width;
-  position: fixed;
-  text-align: left;
-  z-index: 100;
-  top: 0;
-
-  i {
-    cursor: pointer;
-    position: relative;
-		top: 15px;
-		left: 10px;
-		font-size: 20px;
-		font-weight: lighter;
-		color: white;
-  }
-}
+@import './NavBar.scss';
 </style>
