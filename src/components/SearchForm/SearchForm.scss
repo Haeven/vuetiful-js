@@ -1,7 +1,11 @@
+@import '../../styles/_variables.scss';
+@import '../../styles/global.scss';
+
 .search-form {
 	padding: $search-form--padding;
 	margin: $search-form--margin;
 	text-align: left;
+	max-width: $search-form--width;
 
   .search-form__container {
     height: fit-content;

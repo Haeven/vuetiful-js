@@ -1,3 +1,6 @@
+@import '../../styles/_variables.scss';
+@import '../../styles/global.scss';
+
 nav {
   background-color: $navbar--background-color;
   height: $navbar--height;
@@ -12,7 +15,7 @@ nav {
     position: relative;
 		top: 15px;
 		left: 10px;
-		font-size: 20px;
+		font-size: 21px !important;
 		font-weight: lighter;
 		color: white;
   }
