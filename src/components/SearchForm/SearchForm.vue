@@ -6,7 +6,7 @@
 								<label>{{ field.label }}</label>
 								<search-input v-if="field.type !== 'dropdown'" :alt="oFormFields[field.label]" v-model="oFormFields[field.label]" :type="field.type"></search-input>
 								<div v-else class="select__container">
-										<i class="icon icon--down"></i>
+										<i class="icon --down"></i>
 										<select>
 												<option v-for="item in field.items" v-bind:key="item" :value="item">{{ item }}</option>
 										</select>

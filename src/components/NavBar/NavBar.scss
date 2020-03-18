@@ -2,15 +2,17 @@
 @import '../../styles/global.scss';
 
 nav {
-  background-color: $navbar--background-color;
-  height: $navbar--height;
+	height: $navbar--height;
+	line-height: $navbar--height;
+	padding: 0px 20px;
   width: $navbar--width;
   position: fixed;
   text-align: left;
   z-index: 100;
-  top: 0;
+	top: 0;
+	display: flex;
 
-  i {
+  & > i {
     cursor: pointer;
     position: relative;
 		top: 15px;
@@ -18,5 +20,35 @@ nav {
 		font-size: 21px !important;
 		font-weight: lighter;
 		color: white;
-  }
+	}
+
+	.navbar__item {
+		width: $navbar__item-width;
+		height: $navbar--height;
+		line-height: $navbar--height;
+		background-color: white;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		overflow: hidden;
+		text-align: center;
+		vertical-align: middle;
+		padding: 0px 10px;
+		margin: 0px 20px;
+
+		p {
+			font-size: 13pt;
+			font-style: bold;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
+		}
+
+		&.--dropdown:after {
+			content: '';
+			height: 100%;
+			width: 0;
+			display: inline-block;
+			vertical-align: middle;
+		}
+	}
 }

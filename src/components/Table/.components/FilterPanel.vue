@@ -5,7 +5,7 @@
         <div class="filter-body">
           <div v-for="(item, index) in filters" :key="index" class="filter-item flex-c">
             <div class="filter-check flex-c-c" :class="{ 'is-checked': item.checked }" @click.stop="item.checked = !item.checked">
-              <i class="icon icon--check" v-show="item.checked"></i>
+              <i class="icon --check" v-show="item.checked"></i>
             </div>
             <span class="filter-text">{{ item.text }}</span>
           </div>

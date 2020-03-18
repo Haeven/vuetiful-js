@@ -2,7 +2,7 @@
 	<div class="checkbox__container" @click.stop="check">
 		<div class="checkbox">
 			<div :class="`checkbox__check flex-c-c ${checked}`">
-				<i class="icon icon--check" v-show="checked"></i>
+				<i class="icon --check" v-show="checked"></i>
 			</div>
 		</div>
 		<slot name="label"></slot>

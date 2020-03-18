@@ -35,8 +35,8 @@
 														<button class="btn --primary">Make Survivor</button>
 												</b-col>
 												<b-col class="icon__container">
-													<i class="icon icon--history"></i>
-													<i class="icon icon--trash"></i>
+													<i class="icon --history"></i>
+													<i class="icon --trash"></i>
 												</b-col>
 											</b-row>
 										</b-container>
@@ -58,8 +58,8 @@
 													<p v-for="field in tableCell.header.displayFields" :key="field.value" v-html="field.value"></p>
 												</b-col>
 												<b-col class="icon__container">
-													<i class="icon icon--history"></i>
-													<i class="icon icon--trash"></i>
+													<i class="icon --history"></i>
+													<i class="icon --trash"></i>
 												</b-col>
 											</b-row>
 										</b-container>
