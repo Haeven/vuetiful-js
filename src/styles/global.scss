@@ -227,12 +227,12 @@ input.placeholder-dark:-ms-input-placeholder { color:#909399; }
 	display: inline;
 }
 
-.icon--right:before { content: '\f054'; }
-.icon--left:before { content: '\f053'; }
-.icon--down:before { content: '\f078'; }
-.icon--check:after { content: '\f00c'; }
-.icon--minus:before { content: '\f068'; }
-.icon--trash:before { content: '\f1f8'; }
-.icon--history:before { content: '\f1da'; }
-.icon--search:before { content: '\f002'; }
-.icon--nav:before { content: '\f0c9'; }
+.icon.--right:before { content: '\f054'; }
+.icon.--left:before { content: '\f053'; }
+.icon.--down:before { content: '\f078'; }
+.icon.--check:after { content: '\f00c'; }
+.icon.--minus:before { content: '\f068'; }
+.icon.--trash:before { content: '\f1f8'; }
+.icon.--history:before { content: '\f1da'; }
+.icon.--search:before { content: '\f002'; }
+.icon.--nav:before { content: '\f0c9'; }
