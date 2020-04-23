@@ -38,7 +38,7 @@
 	font-weight: 800 !important;
 }
 
-.table__select {
+.table__select, .table__select--link {
 	box-sizing: border-box;
 	height: 40px;
 	padding: 0 8px;
@@ -52,7 +52,7 @@
 	right: 20px;
 	color: white;
 
-	button {
+	.table__select > button {
 		width: 100%;
 		height: 30px;
 		box-sizing: border-box;
@@ -68,6 +68,17 @@
 		}
 	}
 }
+.table__select--link {
+	& > button {
+		margin-right: 80px;
+		color:#0275db;
+		background-color: transparent;
+		box-shadow: 0px 0px 0px transparent;
+		border: 0px solid transparent;
+		text-shadow: 0px 0px 0px transparent;
+	}
+}
+
 .table__select--all:hover,
 .table__select--row:hover {
 	border-color: $blue;

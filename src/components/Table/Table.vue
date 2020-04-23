@@ -94,6 +94,9 @@
 										{{ tableCell.data }}
 									</span> -->
 							</div>
+							<div :class="`table__select--link flex-c-c ${tableBorder}`">
+								<button @click="quickPeek(tableRow.index)">quick peek</button>
+							</div>
 							<!-- Row select button -->
 							<div
 								v-if="selectableRows"
@@ -480,7 +483,10 @@ export default {
 		 * @param {Object} tableRow - Row Data object
 			* @param {Number} rowIndex - Row index
 		 */
-		onSelectRow(tableRow, rowIndex) {
+		quickPeek(rowIndex) {
+			this.$emit('quickPeek', rowIndex);
+		},
+		onSelectRow(tableRow) {
 			if (!this.selectableRows) return;
 
 			tableRow.selected = !tableRow.selected;
