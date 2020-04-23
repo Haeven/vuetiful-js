@@ -88,7 +88,7 @@ $navbar--width: 100%;
 $navbar--background-color: $blue-dark;
 
 //NavBar item
-$navbar__item--width: 10%;
+$navbar__item--width: fit-content;
 
 //== SideBar
 //
@@ -170,6 +170,7 @@ $table--striped-color: #f9f9f9;
 
 // Table cell
 $table__cell--font-size: 13px;
+$table__cell--padding: 10px;
 $table__cell--font-color: $gray;
 $table__cell-content--min-width: 12px;
 $table__cell-content--min-height: 10px;

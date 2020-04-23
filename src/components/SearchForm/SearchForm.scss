@@ -3,9 +3,10 @@
 
 .search-form {
 	padding: $search-form--padding;
-	margin: $search-form--margin;
 	text-align: left;
 	max-width: $search-form--width;
+	margin-left: auto;
+	margin-right: auto;
 
   .search-form__container {
     height: fit-content;

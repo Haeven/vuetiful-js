@@ -2,28 +2,46 @@
     <nav
 			v-if="type === 'sidebar'"
 			v-on:click="toggleSideBar"
+			:style="{ 'backgroundColor': color || defaultColor }"
+			:class="{ 'box-shadow': shadow }"
 			@mouseenter="hovering = true"
 			@mouseleave="hovering = false"
-			:style="{ 'backgroundColor': color || '#013f76' }"
-			:class="{ 'box-shadow': shadow }"
 		>
-      <i class="icon icon--nav"></i>
+      <i class="icon icon --nav"></i>
 	</nav>
 	<nav
 		v-else-if="type === 'navbar'"
 		:class="{ 'box-shadow': shadow }"
-		:style="{ 'backgroundColor': color || '#013f76', height: height || defaultHeight, lineHeight: height || defaultHeight  }"
+		:style="{ 'backgroundColor': color || defaultColor, height: height || defaultHeight, lineHeight: height || defaultHeight  }"
 	>
 		<slot></slot>
 		<div
 			v-for="navItem of items"
-			:key="navItem.slug"
 			class="navbar__item"
+			:key="navItem.slug"
 			:class="{ '--dropdown': true }"
-			:style="{ height: height || defaultHeight, lineHeight: height || defaultHeight }"
+			:ref="navItem.slug"
+			@mouseenter="handleHover(navItem.slug, false)"
+			@mouseleave="handleHover(navItem.slug, true)"
+			:style="{ height: height || defaultHeight, lineHeight: height || defaultHeight, backgroundColor: color || defaultColor, color: theme === 'light' ? 'black' : 'white' }"
 		>
-			<p>{{ navItem.label }}</p>
-			<i class="icon --down"></i>
+			<p>{{ navItem.label }} <i class="icon --down"></i></p>
+			<div
+				:style="{ top: height || defaultHeight }"
+				:id="`${navItem.slug}`"
+				class="navbar__item-dropdown-list"
+				hidden
+			>
+				<div
+					v-for="childItem of navItem.items"
+					:key="childItem.slug"
+					:id="childItem.slug"
+					:style="{ top: height }"
+					class="navbar__sub-item"
+				>
+					{{ childItem.label }}
+				</div>
+			</div>
 		</div>
 	</nav>
 </template>
@@ -38,14 +56,17 @@ export default {
 		return {
 			navbarIcon,
 			sideBarOpen: false,
-			hovering: false,
-			defaultHeight: styles.navbarHeight
+			defaultHeight: styles.navbarHeight,
+			defaultColor: styles.navbarColor
 		};
 	},
 	methods: {
 		toggleSideBar() {
 			this.sideBarOpen = this.sideBarOpen ? false : true;
 			this.$emit('toggleSideBar', this.sideBarOpen);
+		},
+		handleHover(id, hide) {
+			document.querySelector(`#${id}`).hidden = hide;
 		}
 	},
 	props: {
@@ -53,7 +74,8 @@ export default {
 		color: String,
 		height: String,
 		shadow: Boolean,
-		items: Array
+		items: Array,
+		theme: String
 	}
 };
 </script>

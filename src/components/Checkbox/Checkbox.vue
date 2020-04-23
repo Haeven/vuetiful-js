@@ -1,7 +1,7 @@
 <template>
-	<div class="checkbox__container" @click.stop="check">
+	<div class="checkbox__container">
 		<div class="checkbox">
-			<div :class="`checkbox__check flex-c-c ${checked}`">
+			<div :class="`checkbox__check flex-c-c ${checked}`" tabindex="0" @click.stop="check" v-on:keyup.enter="check">
 				<i class="icon --check" v-show="checked"></i>
 			</div>
 		</div>

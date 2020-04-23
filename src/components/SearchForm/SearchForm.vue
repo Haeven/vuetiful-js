@@ -4,13 +4,8 @@
 				<div class="search-form__container">
 						<div v-for="field in formFields" v-bind:key="field.label" class="search-form__field">
 								<label>{{ field.label }}</label>
-								<search-input v-if="field.type !== 'dropdown'" :alt="oFormFields[field.label]" v-model="oFormFields[field.label]" :type="field.type"></search-input>
-								<div v-else class="select__container">
-										<i class="icon --down"></i>
-										<select>
-												<option v-for="item in field.items" v-bind:key="item" :value="item">{{ item }}</option>
-										</select>
-								</div>
+								<input-field v-if="field.type !== 'dropdown'" :alt="oFormFields[field.label]" v-model="oFormFields[field.label]" :type="field.type"></input-field>
+								<select-field v-else :items="field.items"></select-field>
 						</div>
 				</div>
 
@@ -27,6 +22,7 @@
 
 <script>
 import Input from '../Input/Input.vue';
+import Select from '../Select/Select.vue';
 import Checkbox from '../Checkbox/Checkbox.vue';
 
 export default {
@@ -36,7 +32,7 @@ export default {
 			oFormFields: this.getFormFields()
 		};
 	},
-	components: { 'search-input': Input, 'search-checkbox': Checkbox },
+	components: { 'input-field': Input, 'search-checkbox': Checkbox, 'select-field': Select },
 	methods: {
 		getFormFields() {
 			return this.formFields.reduce((agg, cur) => { agg[cur.label] = ''; return agg; }, {});
