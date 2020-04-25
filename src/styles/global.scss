@@ -33,12 +33,13 @@ select {
 
 ::-webkit-scrollbar {
   -webkit-appearance: none;
-	width: 7px;
+	width: 4px;
 	height: 10px;
+	border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb {
-  border-radius: 4px;
+  border-radius: 2px;
   background-color: rgba(0, 0, 0, .5);
   box-shadow: 0 0 1px rgba(255, 255, 255, .5);
 }
@@ -215,6 +216,7 @@ input.placeholder-dark:-ms-input-placeholder { color:#909399; }
 .icon.--down:before { content: '\f078'; }
 .icon.--up:before { content: '\f077'; }
 .icon.--check:after { content: '\f00c'; }
+.icon.--eye:after { content: '\f06e'; }
 .icon.--minus:before { content: '\f068'; }
 .icon.--trash:before { content: '\f1f8'; }
 .icon.--history:before { content: '\f1da'; }
