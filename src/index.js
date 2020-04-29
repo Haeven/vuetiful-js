@@ -6,6 +6,7 @@
 */
 
 /* Import every component in src/components */
+import AlertBox from './components/AlertBox/AlertBox.vue';
 import AlertPopUp from './components/AlertPopUp/AlertPopUp.vue';
 import Checkbox from './components/Checkbox/Checkbox.vue';
 import Input from './components/Input/Input.vue';
@@ -17,10 +18,11 @@ import SideBar from './components/SideBar/SideBar.vue';
 import Table from './components/Table/Table.vue';
 
 /* Export components individually */
-export { AlertPopUp, Checkbox, Input, NavBar, PopUp, SearchForm, Select, SideBar, Table };
+export { AlertBox, AlertPopUp, Checkbox, Input, NavBar, PopUp, SearchForm, Select, SideBar, Table };
 
 /* Use every component when the library is installed as a Vue plugin */
 function install(Vue) {
+	Vue.component('vuetiful-alert-box', AlertBox);
 	Vue.component('vuetiful-alert-pop-up', AlertPopUp);
 	Vue.component('vuetiful-checkbox', Checkbox);
 	Vue.component('vuetiful-input', Input);
