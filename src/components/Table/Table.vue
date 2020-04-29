@@ -3,7 +3,7 @@
 		<div v-if="tableData && tableData.rows && tableData.rows.length > 0" :style="`minWidth: ${minWidth}; maxWidth: ${maxWidth};`">
 			<!-- Table Tools -->
 			<div class="table__tools flex-c-s" v-if="enableTools">
-				<table-input v-if="enableSearch" class="tools__tools--search" v-model="searchValue" placeholder="Search" prefixIcon="icon icon--search"></table-input>
+				<table-input v-if="enableSearch" class="tools__tools--search" v-model="searchValue" placeholder="Search" prefixIcon="icon --search"></table-input>
 			</div>
 
 			<!-- Table -->
@@ -20,8 +20,8 @@
 						:class="`table__check flex-c-c ${tableBorder}`"
 						:style="`backgroundColor: ${isHighlighted(0, NaN) ? highlightedColor : 'transparent'}`">
 						<div :class="`table__check--all flex-c-c ${ tableData.rows[0].checked ? 'is-checked' : '' }`" @click.stop="onCheckAll(tableData.rows[0])">
-							<i class="icon icon--check" v-show="tableData.rows[0].checked === true"></i>
-							<i class="icon icon--minus" v-show="tableData.rows[0].checked === 'indeterminate'"></i>
+							<i class="icon --check" v-show="tableData.rows[0].checked === true"></i>
+							<i class="icon --minus" v-show="tableData.rows[0].checked === 'indeterminate'"></i>
 						</div>
 					</div>
 
@@ -68,7 +68,7 @@
 										class="table__check--row flex-c-c"
 										:class="{ 'is-checked': tableRow.checked }"
 										@click.stop="onCheckRow(tableRow, tableRow.index)">
-											<i class="icon icon--check" v-show="tableRow.checked"></i>
+											<i class="icon --check" v-show="tableRow.checked"></i>
 								</div>
 							</div>
 
@@ -76,7 +76,7 @@
 							<div
 								v-for="(tableCell, j) in tableRow.cells"
 								:key="j"
-								:class="`table__cell flex-c-s ${tableBorder}`"
+								:class="`table__cell flex-c-s ${tableBorder} ${getCellStyle(tableRow.index, j, true)}`"
 								:style="getCellStyle(tableRow.index, j)"
 								@click="onClickCell(tableCell, tableRow.index, j)">
 									<span
@@ -95,7 +95,7 @@
 									</span> -->
 							</div>
 							<div :class="`table__select--link flex-c-c ${tableBorder}`">
-								<button @click="quickPeek(tableRow.index)">quick peek</button>
+								<button v-if="quickPeekEnabled" @click="quickPeek(tableRow.index)">quick peek</button>
 							</div>
 							<!-- Row select button -->
 							<div
@@ -113,6 +113,7 @@
 				</div>
 			</div>
 		</div>
+		{{cellStyle}}
 	</div>
 </template>
 
@@ -174,7 +175,8 @@ export default {
 	computed: {
 		sourceData         () { return (Array.isArray(this.params.data)) ? this.params.data : [];                                                                             },
 		tableBorder        () { return (this.params.border) ? 'show-border' : '';                                                                                        		 },
-		selectableRows        () { return (this.params.selectable) ? true : false;                                                                                        		 },
+		selectableRows     () { return (this.params.selectable) ? true : false;                                                                                        		 },
+		quickPeekEnabled   () { return (this.params.quickPeek) ? true : false;                                                                                        		 },
 		rowStripe          () { return (this.params.rowStripe) ? 'is-striped' : '';                                                                                           },
 		highlightConfig    () { return (this.params.highlight && typeof this.params.highlight === 'object') ? this.params.highlight : {};                                     },
 		highlightedColor   () { return (this.params.highlightedColor && typeof this.params.highlightedColor === 'string') ? this.params.highlightedColor : '#000000';         },
@@ -197,6 +199,7 @@ export default {
 		pagination         () { return !!(this.params.pagination);                                                                                                            },
 		pageConfig         () { return (typeof this.params.pageSize === 'number' &&this.params.pageSize > 0) ? this.params.pageSize : 10;                                     },
 		pageSizes          () { return (Array.isArray(this.params.pageSizes)) ? this.params.pageSizes : [10, 20, 50, 100];                                                    },
+		cellStyle          () { return (Array.isArray(this.params.cellStyle)) ? this.params.cellStyle : [];                                                    },
 		columnWidth() {
 			if (populatedArray(this.params.columnWidth)) {
 				const obj = {};
@@ -353,8 +356,24 @@ export default {
 		/**
 		 * @function - Get style data of Cell
 		 */
-		getCellStyle(rowIndex, columnIndex) {
-			const style = {};
+		getCellStyle(rowIndex, columnIndex, getClass) {
+			const style = (this.cellStyle.find(cur => {
+				if (
+					cur.exclude
+					&& cur.exclude.some(r => r.row == rowIndex || r.column == columnIndex)
+				) return false;
+
+				return (cur.column && cur.row)
+					? cur.column == columnIndex && cur.row == rowIndex
+					: (cur.column)
+						? cur.column == columnIndex
+						: (cur.row)
+							? cur.row == rowIndex
+							: false;
+			}) || {}).style;
+			if (getClass && style && style.class) return style.class;
+			else if (getClass) return '';
+
 			if (this.isHighlighted(rowIndex, columnIndex)) style.backgroundColor = this.highlightedColor;
 
 			return (this.columnWidth[columnIndex]) ? {
@@ -832,5 +851,5 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-@import './Table.scss'
+@import './Table.scss';
 </style>

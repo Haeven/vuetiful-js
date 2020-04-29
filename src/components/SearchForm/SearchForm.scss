@@ -5,6 +5,7 @@
 	padding: $search-form--padding;
 	text-align: left;
 	max-width: $search-form--width;
+	min-width: $search-form__field--min-width + 50px;
 	margin-left: auto;
 	margin-right: auto;
 

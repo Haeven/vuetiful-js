@@ -48,5 +48,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import './SearchForm.scss'
+@import './SearchForm.scss';
 </style>
