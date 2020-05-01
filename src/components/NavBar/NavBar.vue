@@ -12,8 +12,7 @@
 	<nav
 		v-else-if="type === 'navbar'"
 		:class="{ 'box-shadow': shadow }"
-		:style="{ 'backgroundColor': color || defaultColor, height: height || defaultHeight, lineHeight: height || defaultHeight  }"
-	>
+		:style="{ 'backgroundColor': color || defaultColor, height: height || defaultHeight, lineHeight: height || defaultHeight  }">
 		<slot></slot>
 		<div
 			v-for="navItem of items"
@@ -21,7 +20,7 @@
 			:key="navItem.slug"
 			:class="{ '--dropdown': true }"
 			:ref="navItem.slug"
-			@mouseenter="handleHover(navItem.slug, false)"
+			@mouseenter="handleHover(navItem, false)"
 			@mouseleave="handleHover(navItem.slug, true)"
 			:style="{ height: height || defaultHeight, lineHeight: height || defaultHeight, backgroundColor: color || defaultColor, color: theme === 'light' ? 'black' : 'white' }"
 		>
@@ -66,6 +65,7 @@ export default {
 			this.$emit('toggleSideBar', this.sideBarOpen);
 		},
 		handleHover(id, hide) {
+			console.log(id); /* eslint-disable-line */
 			document.querySelector(`#${id}`).hidden = hide;
 		}
 	},

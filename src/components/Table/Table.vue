@@ -40,8 +40,8 @@
 
 						<span v-if="sortConfig.includes(j)" class="table-sort flex-dir-column" :style="`height: ${rowHeight} `">
 							<i
-							:class="`sort--btns sort--ascending ${activatedSort[j] && activatedSort[j] === 'ascending' ? 'activated' : '' }`"
-							@click.stop="onSort(j, 'ascending')"></i>
+								:class="`sort--btns sort--ascending ${activatedSort[j] && activatedSort[j] === 'ascending' ? 'activated' : '' }`"
+								@click.stop="onSort(j, 'ascending')"></i>
 							<i
 								:class="`sort--btns sort--descending ${activatedSort[j] && activatedSort[j] === 'descending' ? 'activated' : '' }`"
 								@click.stop="onSort(j, 'descending')"></i>
@@ -76,27 +76,45 @@
 							<div
 								v-for="(tableCell, j) in tableRow.cells"
 								:key="j"
-								:class="`table__cell flex-c-s ${tableBorder} ${getCellStyle(tableRow.index, j, true)}`"
+								:class="`table__cell flex-c-s ${tableBorder} ${Array.isArray(tableCell.data) ? '--multi-cell' : '' } ${getCellStyle(tableRow.index, j, true)}`"
 								:style="getCellStyle(tableRow.index, j)"
-								@click="onClickCell(tableCell, tableRow.index, j)">
-									<span
-										:class="`table__cell-content ${ i !== 0 ? 'fill-width' : '' }`"
-										:style="`white-space: ${whiteSpace}; overflow-wrap: ${wordWrap}; text-overflow: ${textOverflow};`"
-										:contenteditable="isEditable(tableRow.index, j)"
-										:id="tableCell.key"
-										@blur="onCellBlur(tableCell, tableRow.index, j)"
-										@keydown.enter.stop.prevent="onCellKeyEnter"
-									>
-										{{ tableCell.data }}
-									</span>
-									<!-- TODO: decide whether or not to implement layered cells (cell title, subtitle etc.) -->
-									<!-- <span style="width: 100%;">
-										{{ tableCell.data }}
-									</span> -->
+								@click="onClickCell(tableCell, tableRow.index, j)"
+							>
+								<span
+									v-if="typeof tableCell.data == 'string'"
+									:class="`table__cell-content ${ i !== 0 ? 'fill-width' : '' }`"
+									:style="`white-space: ${whiteSpace}; overflow-wrap: ${wordWrap}; text-overflow: ${textOverflow};`"
+									:contenteditable="isEditable(tableRow.index, j)"
+									:id="tableCell.key"
+									@blur="onCellBlur(tableCell, tableRow.index, j)"
+									@keydown.enter.stop.prevent="onCellKeyEnter"
+								>
+									{{ tableCell.data }}
+								</span>
+								<div
+									v-else-if="Array.isArray(tableCell.data)"
+									v-for="[index, item] in Object.entries(tableCell.data)"
+									:key="index"
+									:class="`table__cell-content --multi-cell ${ i !== 0 ? 'fill-width' : '' }`"
+									:style="`white-space: ${whiteSpace}; overflow-wrap: ${wordWrap}; text-overflow: ${textOverflow};`"
+									:contenteditable="isEditable(tableRow.index, j)"
+									:id="tableCell.key"
+									@blur="onCellBlur(tableCell, tableRow.index, j)"
+									@keydown.enter.stop.prevent="onCellKeyEnter"
+								>
+									<p>{{ item.value }}</p>
+								</div>
+								<!-- TODO: decide whether or not to implement layered cells (cell title, subtitle etc.) -->
+								<!-- <span style="width: 100%;">
+									{{ tableCell.data }}
+								</span> -->
 							</div>
+
+							<!-- Quick peek button -->
 							<div :class="`table__select--link flex-c-c ${tableBorder}`">
 								<button v-if="quickPeekEnabled" @click="quickPeek(tableRow.index)">quick peek</button>
 							</div>
+
 							<!-- Row select button -->
 							<div
 								v-if="selectableRows"
@@ -113,7 +131,16 @@
 				</div>
 			</div>
 		</div>
-		{{cellStyle}}
+
+		<quick-peek
+			v-if="this.quickPeekArr.length"
+			:quickPeekArr="quickPeekArr"
+			:headers="quickPeekHeaders"
+			:data="quickPeekHeaders.reduce((agg, cur, idx) => { agg[cur] = this.quickPeekArr[0][idx]; return agg; }, {})"
+			:headingValue="this.quickPeekArr[0][quickPeekRowHeadingIndex]"
+			:subHeadingValue="this.quickPeekArr[0][quickPeekRowSubHeadingIndex]"
+			@exit="exitQuickPeek"
+		></quick-peek>
 	</div>
 </template>
 
@@ -123,6 +150,7 @@ import { generateUnique } from '../../utils/generateUnique.js';
 
 // Components
 import Input from '../Input/Input.vue';
+import QuickPeek from '../QuickPeek/QuickPeek.vue';
 
 // Statics
 const wordWrapList = [ 'normal', 'break-word' ];
@@ -138,6 +166,7 @@ export default {
 			activatedSort       : {},
 			totalPages          : 0,
 			pageSize            : 0,
+			quickPeekArr        : [],
 		};
 	},
 	props: {
@@ -176,7 +205,11 @@ export default {
 		sourceData         () { return (Array.isArray(this.params.data)) ? this.params.data : [];                                                                             },
 		tableBorder        () { return (this.params.border) ? 'show-border' : '';                                                                                        		 },
 		selectableRows     () { return (this.params.selectable) ? true : false;                                                                                        		 },
-		quickPeekEnabled   () { return (this.params.quickPeek) ? true : false;                                                                                        		 },
+		fixedColumns     () { return (this.params.fixedColumns) ? this.params.fixedColumns : [];                                                                                 },
+		quickPeekEnabled   () { return (this.params.quickPeekConfig) ? true : false;                                                                                        		 },
+		quickPeekHeaders   () { return (this.params.quickPeekConfig && this.params.quickPeekConfig.headers) ? this.params.quickPeekConfig.headers : [];                  		 },
+		quickPeekRowHeadingIndex   () { return (this.params.quickPeekConfig && this.params.quickPeekConfig.rowHeadingIndex) ? this.params.quickPeekConfig.rowHeadingIndex : 0;                  		 },
+		quickPeekRowSubHeadingIndex   () { return (this.params.quickPeekConfig && this.params.quickPeekConfig.rowSubHeadingIndex) ? this.params.quickPeekConfig.rowSubHeadingIndex : 1;                  		 },
 		rowStripe          () { return (this.params.rowStripe) ? 'is-striped' : '';                                                                                           },
 		highlightConfig    () { return (this.params.highlight && typeof this.params.highlight === 'object') ? this.params.highlight : {};                                     },
 		highlightedColor   () { return (this.params.highlightedColor && typeof this.params.highlightedColor === 'string') ? this.params.highlightedColor : '#000000';         },
@@ -370,11 +403,12 @@ export default {
 						: (cur.row)
 							? cur.row == rowIndex
 							: false;
-			}) || {}).style;
+			}) || {}).style || {};
+
 			if (getClass && style && style.class) return style.class;
 			else if (getClass) return '';
 
-			if (this.isHighlighted(rowIndex, columnIndex)) style.backgroundColor = this.highlightedColor;
+			if (this.isHighlighted(rowIndex, columnIndex) && style) style.backgroundColor = this.highlightedColor;
 
 			return (this.columnWidth[columnIndex]) ? {
 				...style,
@@ -496,14 +530,6 @@ export default {
 
 			this.$emit('select', tableRow.checked, rowIndex, this.getRowDataFromTableRow(tableRow));
 			this.$emit('selectionChange', this.getRowDatas(true, 'checked'), this.getCheckedRowIndices(true), this.getCheckedRowNum(true));
-		},
-		/**
-		 * @function - Select a single row
-		 * @param {Object} tableRow - Row Data object
-			* @param {Number} rowIndex - Row index
-		 */
-		quickPeek(rowIndex) {
-			this.$emit('quickPeek', rowIndex);
 		},
 		onSelectRow(tableRow) {
 			if (!this.selectableRows) return;
@@ -844,9 +870,28 @@ export default {
 			}
 
 			return 0;
-		}
+		},
+		/**
+		 * @function - Exit quick peek
+		 */
+		exitQuickPeek() {
+			this.quickPeekArr = [];
+		},
+		/**
+		 * @function - Handle quick peek
+		 */
+		quickPeek(rowIndex) {
+			this.quickPeekArr = [];
+			this.sourceData.map(cur => {
+				if (this.sourceData.indexOf(cur) === rowIndex) {
+					this.quickPeekArr.push(cur);
+				}
+			});
+
+			return rowIndex;
+		},
 	},
-	components: { 'table-input': Input }
+	components: { 'table-input': Input, 'quick-peek': QuickPeek }
 };
 </script>
 
