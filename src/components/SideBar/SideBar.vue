@@ -5,6 +5,7 @@
 				:class="(loadedPage === item.location || item.location === '/dashboard' && loadedPage == '/') ? 'active' : ''"
 				:id="item.slug"
 				v-bind:key="item.slug"
+				v-show="!item.permissionLevel || userPermissionLevel >= item.permissionLevel"
 				@click="redirect(item.location, item.slug)">
 				{{ item.label }}
 			</li>
@@ -23,10 +24,13 @@ export default {
 					"slug": "dashboard", // The unique identifier for the sidebar item
 					"label": "Dashboard", // The display text of the sidebar item
 					"location": "/dashboard" // The URL the sidebar item should redirect to
+					"permissionLevel": 0, // the level of permission required to view this menu item
 				}
 			]
 		*/
-		navigableItems: Array
+		navigableItems: Array,
+		/* The permission level of the current user */
+		userPermissionLevel: Number
 	},
 	methods: {
 		redirect(location, activeSlug) {
