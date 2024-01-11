@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/Haeven/vuetiful#readme",
   "devDependencies": {
-    "@vue/cli-service": "^4.2.3",
+    "@vue/cli-service": "^5.0.8",
     "css-loader": "^3.4.2",
     "eslint": "^6.8.0",
     "eslint-plugin-vue": "^6.2.2",
